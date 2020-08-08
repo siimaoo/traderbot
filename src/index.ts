@@ -2,11 +2,11 @@ import { Client, Message } from 'discord.js';
 import {ListCommand} from './commands/ListCommand';
 import 'dotenv/config';
 
-import { IBotRepository } from './repositories/IBotRepository';
 import { SetActivity } from './utils/SetActivity';
 import { HelpCommand } from './commands/HelpCommand';
 import { AddCommand } from './commands/AddCommand';
 import { RemoveCommand } from './commands/RemoveCommand';
+import { GetStockPrice } from './services/GetStockPrice'; 
 
 class TraderBot {
   private botToken: string = process.env.TOKEN;
@@ -17,6 +17,7 @@ class TraderBot {
   private helpCommand = new HelpCommand();
   private addCommand = new AddCommand(this.ativos);
   private removeCommand = new RemoveCommand(this.ativos);
+  private getStockPrice = new GetStockPrice(this.ativos);
   
   constructor() {
     this.init();
@@ -24,8 +25,12 @@ class TraderBot {
   
   private init() {
     this.client.login(this.botToken);
+
     this.client.on("ready", () => {
+      console.log('Start: success');
       this.setActivity.execute();
+      console.log('Set Activity: success');
+      this.getStockPrice.execute();
     });
 
     this.client.on("message", (msg) => {
