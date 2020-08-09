@@ -8,8 +8,6 @@ export class SendMessageOnChannel {
     let server: Guild;
     let channelToNotify: any
 
-    
-
     client.guilds.cache.map((guild) => {
       if (guild.name == "siimaoo's server")
         server = guild;
@@ -19,8 +17,6 @@ export class SendMessageOnChannel {
       if (channel.name == "teste-bot")
         channelToNotify = channel;
     });
-
-    
 
     channelToNotify.send(message);
   }
