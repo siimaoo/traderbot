@@ -6,7 +6,8 @@ import { SetActivity } from './utils/SetActivity';
 import { HelpCommand } from './commands/HelpCommand';
 import { AddCommand } from './commands/AddCommand';
 import { RemoveCommand } from './commands/RemoveCommand';
-import { GetStockPrice } from './services/GetStockPrice'; 
+import { GetStockPrice } from './services/GetStockPrice';
+import { SendMessageOnChannel } from './utils/SendMessageOnChannel'; 
 
 class TraderBot {
   private botToken: string = process.env.TOKEN;
@@ -17,7 +18,7 @@ class TraderBot {
   private helpCommand = new HelpCommand();
   private addCommand = new AddCommand(this.ativos);
   private removeCommand = new RemoveCommand(this.ativos);
-  private getStockPrice = new GetStockPrice(this.ativos);
+  private getStockPrice = new GetStockPrice(this.ativos, this.client);
   
   constructor() {
     this.init();
@@ -32,6 +33,7 @@ class TraderBot {
       console.log('Set Activity: success');
       this.getStockPrice.execute();
     });
+
 
     this.client.on("message", (msg) => {
       const commandAndParams = msg.content.split(" ");
