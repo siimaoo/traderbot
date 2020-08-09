@@ -6,7 +6,8 @@
   "author": "Lucas Simão",
   "license": "MIT",
   "scripts": {
-    "start": "tsnd --transpile-only --respawn --ignore-watch node_modules src/index.ts"
+    "start": "tsnd --transpile-only --respawn --ignore-watch node_modules src/index.ts",
+    "build": "tsc" 
   },
   "dependencies": {
     "@types/node": "^14.0.27",
